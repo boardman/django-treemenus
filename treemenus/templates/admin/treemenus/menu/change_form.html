@@ -24,6 +24,7 @@
 				<th>{% trans "Caption" %}</th>
 				<th>{% trans "Url" %}</th>
 				<th>{% trans "Named url" %}</th>
+				<th>{% trans "Group" %}</th>
 				<th colspan="2">{% trans "Move" %}</th>
 			</tr>
 		</thead>
@@ -33,18 +34,21 @@
 			<tr class="{% cycle 'row1' 'row2' %}">
 			
 				{% if forloop.first %}
-					<td colspan="3">						
+					<td colspan="4">						
 						{% trans "[Root]" %}
 					</td>
 				{% else %}
-					<td width="35%">
+					<td width="30%">
 						<a href="items/{{ menu_item.pk }}/">{{ menu_item.caption_with_spacer|safe }}</a>
 					</td>
-					<td width="25%">
+					<td width="20%">
 						{{ menu_item.url }}
 					</td>
-					<td width="25%">
+					<td width="20%">
 						{{ menu_item.named_url }}
+					</td>
+					<td width="15%">
+						{{ menu_item.group.name }}
 					</td>
 				{% endif %}
 				

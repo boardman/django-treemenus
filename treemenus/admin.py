@@ -12,7 +12,7 @@ from django.core.exceptions import PermissionDenied
 
 from treemenus.models import Menu, MenuItem
 from treemenus.utils import get_parent_choices, MenuItemChoiceField, move_item_or_clean_ranks
-
+from treemenus.widgets import TreeMenuRelatedFieldWidgetWrapper
 
 
 
@@ -63,6 +63,7 @@ class MenuItemAdmin(admin.ModelAdmin):
         form = super(MenuItemAdmin, self).get_form(request, obj, **kwargs)
         choices = get_parent_choices(self._menu, obj)
         form.base_fields['parent'] = MenuItemChoiceField(choices=choices)
+        form.base_fields['group'].widget = TreeMenuRelatedFieldWidgetWrapper(form.base_fields['group'].widget, form.base_fields['group'].widget.rel, form.base_fields['group'].widget.admin_site)
         return form
 
 class MenuAdmin(admin.ModelAdmin):

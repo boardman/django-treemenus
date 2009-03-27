@@ -1,13 +1,10 @@
 from itertools import chain
 
 from django.db import models
+from django.contrib.auth.models import Group
+
 from django.utils.translation import ugettext_lazy
 from django.utils.translation import ugettext as _
-
-
-
-
-
 
 class MenuItem(models.Model):
     parent = models.ForeignKey('self', verbose_name=ugettext_lazy('Parent'), null=True, blank=True)
@@ -17,6 +14,7 @@ class MenuItem(models.Model):
     level = models.IntegerField(ugettext_lazy('Level'), default=0, editable=False)
     rank = models.IntegerField(ugettext_lazy('Rank'), default=0, editable=False)
     menu = models.ForeignKey('Menu', related_name='contained_items', verbose_name=ugettext_lazy('Menu'), null=True, blank=True, editable=False)
+    group = models.ForeignKey(Group, null=True, blank=True)
     
     def __unicode__(self):
         return self.caption
